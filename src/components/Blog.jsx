@@ -396,7 +396,6 @@ export default function App() {
 
       <P>
         Sandpack's composable architecture means you can keep building forever.
-        The LEGO bricks are all there — you just decide what to build with them.
       </P>
 
       {/* ═══════════════════════════════════════════════════ */}
@@ -408,13 +407,7 @@ export default function App() {
           paddingTop: "2rem",
           borderTop: "1px solid var(--border)",
         }}
-      >
-        <P style={{ fontSize: "0.9rem", opacity: 0.6 }}>
-          Thanks for reading! This is part of the JustCodeDaily series where we
-          build, break, and learn React one concept at a time. If you enjoyed
-          this, check out the useBattery and useEggs posts too.
-        </P>
-      </footer>
+      ></footer>
     </article>
   );
 };
