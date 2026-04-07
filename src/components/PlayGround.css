@@ -11,10 +11,10 @@
 /* ── Color tokens (mirrors the COLORS object) ──────────── */
 /* These extend your existing :root variables in index.css  */
 :root {
-  --sp-editor-bg: #2d2a2e;
-  --sp-toolbar-bg: #221f22;
-  --sp-border: #3e3b3f;
-  --sp-console-bg: #19181a;
+  --sp-editor-bg: #000000;
+  --sp-toolbar-bg: #000000;
+  --sp-border: #1a1a1a;
+  --sp-console-bg: #000000;
   --sp-text-muted: #72696a;
   --sp-green: #a9dc76;
   --sp-pink: #ff6188;
@@ -87,6 +87,7 @@
 .action-btn--yellow {
   color: var(--sp-yellow);
 }
+
 .action-btn--green {
   color: var(--sp-green);
 }
@@ -196,3 +197,18 @@
 .sp-preview-actions {
   background-color: transparent !important;
 }
+
+/* Force line numbers to be white Across different Sandpack/CodeMirror versions */
+.sp-cm [class*="cm-lineNumbers"] *,
+.sp-cm .cm-lineNumbers .cm-gutterElement,
+.sp-cm .cm-gutter-lineNumbers .cm-gutterElement,
+.sp-editor [class*="cm-lineNumbers"] *,
+.sp-editor .cm-lineNumbers .cm-gutterElement {
+  color: #ffffff !important;
+  font-size: 14.25px !important;
+  opacity: 1 !important; /* Full white as requested */
+}
+
+
+
+
