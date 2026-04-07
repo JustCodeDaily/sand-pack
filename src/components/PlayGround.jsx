@@ -363,7 +363,14 @@ function CustomToolbar({ onToggleLines, showLineNumbers }) {
       </span>
 
       {/* Right side: action buttons */}
-      <div style={{ display: "flex", gap: "8px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "8px",
+          flexWrap: "wrap", // ← buttons wrap to next line on narrow screens
+          justifyContent: "flex-end", // ← keep buttons right-aligned when they wrap
+        }}
+      >
         {/* Run / Refresh preview */}
         <button
           onClick={handleRefresh}

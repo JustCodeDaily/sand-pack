@@ -99,7 +99,7 @@ const Blog = () => {
         possible: <Strong>Sandpack</Strong>, the open-source in-browser bundler
         from CodeSandbox.{" "}
         <i>
-          And again, devliated from my Portfolio, since I have this guy in mine
+          And again, deviated from my Portfolio, since I have this guy in mine
           :D
         </i>
       </P>
@@ -117,7 +117,6 @@ const Blog = () => {
         reloading — all without a backend. The{" "}
         <Code>@codesandbox/sandpack-react</Code> package gives us composable
         React components and hooks to build custom playgrounds. <br />
-        P.S Sandpack is the actual bundler used by CodeSandbox.
       </Callout>
 
       {/* ═══════════════════════════════════════════════════ */}
@@ -397,17 +396,6 @@ export default function App() {
       <P>
         Sandpack's composable architecture means you can keep building forever.
       </P>
-
-      {/* ═══════════════════════════════════════════════════ */}
-      {/* FOOTER                                              */}
-      {/* ═══════════════════════════════════════════════════ */}
-      <footer
-        style={{
-          marginTop: "5rem",
-          paddingTop: "2rem",
-          borderTop: "1px solid var(--border)",
-        }}
-      ></footer>
     </article>
   );
 };

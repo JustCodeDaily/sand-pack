@@ -1,4 +1,5 @@
 import React from "react";
+import { Highlight, themes } from "prism-react-renderer";
 
 export const H1 = ({ children, ...props }) => (
   <h1
@@ -127,7 +128,12 @@ export const ListItem = ({ children, ...props }) => (
   </li>
 );
 
-export const CodeScreenshot = ({ children, title = "App.js", ...props }) => (
+export const CodeScreenshot = ({
+  children,
+  title = "App.js",
+  language = "jsx",
+  ...props
+}) => (
   <div
     style={{
       marginBottom: "2rem",
@@ -139,6 +145,7 @@ export const CodeScreenshot = ({ children, title = "App.js", ...props }) => (
       ...props.style,
     }}
   >
+    {/* ── Title bar with traffic-light dots ─────────── */}
     <div
       style={{
         display: "flex",
@@ -175,16 +182,9 @@ export const CodeScreenshot = ({ children, title = "App.js", ...props }) => (
           }}
         />
       </div>
-      <span
-        style={{
-          color: "#72696a",
-          fontSize: "12px",
-          fontWeight: 500,
-        }}
-      >
+      <span style={{ color: "#72696a", fontSize: "12px", fontWeight: 500 }}>
         {title}
       </span>
-
       <span
         style={{
           fontSize: "10px",
@@ -198,30 +198,61 @@ export const CodeScreenshot = ({ children, title = "App.js", ...props }) => (
       </span>
     </div>
 
-    <pre
-      style={{
-        margin: 0,
-        padding: "1.5rem",
-        backgroundColor: "#2d2a2e",
-        color: "#f8f8f2", // Light text on dark bg
-        fontSize: "14px",
-        lineHeight: 1.6,
-        fontFamily:
-          'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
-        overflowX: "auto",
-      }}
+    {/* ── Syntax-highlighted code block ────────────── */}
+    {/*
+      Highlight from prism-react-renderer:
+      - `code` = the raw string (children)
+      - `language` = "jsx" by default, but you can pass "bash"
+        for terminal commands via the `language` prop
+      - `theme` = Dracula matches our dark editor aesthetic
+      
+      It returns tokens (arrays of { types, content }) that
+      we map into <span>s with the correct color styles.
+    */}
+    <Highlight
+      theme={themes.dracula}
+      code={typeof children === "string" ? children.trim() : children}
+      language={title === "Terminal" ? "bash" : language}
     >
-      <code>{children}</code>
-    </pre>
+      {({ style, tokens, getLineProps, getTokenProps }) => (
+        <pre
+          style={{
+            ...style,
+            margin: 0,
+            padding: "1.5rem",
+            fontSize: "14px",
+            lineHeight: 1.6,
+            fontFamily:
+              'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
+            overflowX: "auto",
+            backgroundColor: "#2d2a2e", // Override Dracula's default bg
+          }}
+        >
+          {tokens.map((line, i) => (
+            <div key={i} {...getLineProps({ line })}>
+              {line.map((token, key) => (
+                <span key={key} {...getTokenProps({ token })} />
+              ))}
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight>
   </div>
 );
+
 export const Callout = ({ children, type = "info", title, ...props }) => {
-  // Define colors for each callout type
   const palette = {
     info: { bg: "#1e293b", border: "#3b82f6", icon: "💡" },
     warning: { bg: "#2d1f0e", border: "#f59e0b", icon: "⚠️" },
     tip: { bg: "#0f2922", border: "#10b981", icon: "✨" },
   };
+
+  if (process.env.NODE_ENV === "development" && !palette[type]) {
+    console.warn(
+      `[Callout] Unknown type "${type}". Expected one of: ${Object.keys(palette).join(", ")}. Falling back to "info".`,
+    );
+  }
 
   const colors = palette[type] || palette.info;
 
@@ -248,7 +279,6 @@ export const Callout = ({ children, type = "info", title, ...props }) => {
           {colors.icon} {title}
         </div>
       )}
-
       <div style={{ fontSize: "1rem", lineHeight: 1.6, color: "#d1d5db" }}>
         {children}
       </div>

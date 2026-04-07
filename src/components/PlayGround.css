@@ -1,0 +1,198 @@
+/* ─────────────────────────────────────────────────────────
+ * PlayGround.css
+ * Extracted styles from PlayGround.jsx inline objects.
+ *
+ * WHY: Inline styles on every element hurt readability,
+ * can't use pseudo-classes/media queries, and make the
+ * codebase harder to maintain. Moving repeated patterns
+ * here keeps the JSX clean and lets us use real CSS features.
+ * ───────────────────────────────────────────────────────── */
+
+/* ── Color tokens (mirrors the COLORS object) ──────────── */
+/* These extend your existing :root variables in index.css  */
+:root {
+  --sp-editor-bg: #2d2a2e;
+  --sp-toolbar-bg: #221f22;
+  --sp-border: #3e3b3f;
+  --sp-console-bg: #19181a;
+  --sp-text-muted: #72696a;
+  --sp-green: #a9dc76;
+  --sp-pink: #ff6188;
+  --sp-yellow: #ffd866;
+  --sp-tab-active: #ffffff;
+  --sp-tab-inactive: #72696a;
+}
+
+/* ── Layout wrapper shared by all playground levels ────── */
+.playground-wrapper {
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+
+/* ── Toolbar (header bar above the editor) ─────────────── */
+.playground-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background-color: var(--sp-toolbar-bg);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: 1px solid var(--sp-border);
+  border-bottom: none;
+  flex-wrap: wrap; /* Fix 5: allows wrapping on mobile */
+  gap: 8px;
+}
+
+.playground-toolbar__label {
+  color: var(--sp-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.playground-toolbar__filename {
+  color: var(--sp-text-muted);
+  font-size: 11px;
+}
+
+/* ── Action buttons container ──────────────────────────── */
+.playground-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap; /* Fix 5: wrap on narrow viewports */
+  justify-content: flex-end;
+}
+
+/* ── Base action button ────────────────────────────────── */
+.action-btn {
+  padding: 4px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--sp-border);
+  background-color: var(--sp-editor-bg);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+/* Accent color variants — applied as modifier classes */
+.action-btn--pink {
+  color: var(--sp-pink);
+}
+.action-btn--yellow {
+  color: var(--sp-yellow);
+}
+.action-btn--green {
+  color: var(--sp-green);
+}
+.action-btn--white {
+  color: var(--sp-tab-active);
+}
+
+/* Hover effect for all action buttons */
+.action-btn:hover {
+  filter: brightness(1.2);
+  border-color: currentColor;
+}
+
+/* ── Tab buttons (Result / Console) ────────────────────── */
+.tab-btn {
+  padding: 6px 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--sp-tab-inactive);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab-btn--active {
+  font-weight: 600;
+  color: var(--sp-tab-active);
+  border-bottom-color: var(--sp-green);
+}
+
+/* ── Tab bar container ─────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background-color: var(--sp-toolbar-bg);
+  border-bottom: 1px solid var(--sp-border);
+  gap: 4px;
+}
+
+/* ── Right panel (holds tabs + preview/console) ────────── */
+.playground-right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--sp-border);
+  background-color: var(--sp-editor-bg);
+  overflow: hidden;
+}
+
+/* ── Sandpack layout overrides ─────────────────────────── */
+.sp-layout-rounded-bottom {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--sp-border);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background-color: var(--sp-editor-bg);
+}
+
+.sp-layout-basic {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--sp-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Hint text below BasicPlayground ───────────────────── */
+.playground-hint {
+  font-size: 11px;
+  color: var(--sp-text-muted);
+  margin-top: 10px;
+  text-align: right;
+  font-style: italic;
+}
+
+/* ── Sandpack internal overrides (kept from original) ──── */
+.sp-console,
+.sp-console * {
+  background-color: var(--sp-console-bg) !important;
+}
+
+.sp-console [class*="console-row"] {
+  background-color: transparent !important;
+  border-bottom: 1px solid var(--sp-border) !important;
+  padding: 8px 12px !important;
+}
+
+/* Hide cluttered stack traces in console */
+.sp-console [class*="console-row"] div div:nth-child(n + 2) {
+  opacity: 0.5;
+  font-size: 10px;
+}
+
+.sp-error-boundary {
+  padding: 2rem !important;
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+.sp-preview-container {
+  background-color: #ffffff !important;
+}
+
+.sp-preview-actions {
+  background-color: transparent !important;
+}
