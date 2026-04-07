@@ -14,6 +14,10 @@ import {
   useSandpackNavigation,
 } from "@codesandbox/sandpack-react";
 
+import * as prettier from "prettier/standalone";
+import * as babel from "prettier/plugins/babel";
+import * as estree from "prettier/plugins/estree";
+
 // Resets Code
 export const useResetCode = () => {
   const { sandpack } = useSandpack();
@@ -26,15 +30,15 @@ export const useResetCode = () => {
 // Prettify Code
 export const usePrettifyCode = () => {
   const { code, updateCode } = useActiveCode();
-  const handlePrettify = useCallback(() => {
+
+  const handlePrettify = useCallback(async () => {
     try {
-      const lines = code.split("\n");
-      const cleaned = lines
-        .map((line) => line.trimEnd()) // Remove trailing whitespace per line
-        .join("\n")
-        .replace(/\n{3,}/g, "\n\n") // Collapse 3+ blank lines into 2
-        .trim(); // Remove leading/trailing blank lines
-      updateCode(cleaned);
+      const formatted = await prettier.format(code, {
+        parser: "babel",
+        plugins: [babel, estree],
+        semi: true,
+      });
+      updateCode(formatted);
     } catch (error) {
       console.error("Prettify failed:", error);
     }

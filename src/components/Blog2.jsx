@@ -59,14 +59,12 @@ const Blog = () => {
             marginBottom: "1rem",
           }}
         >
-          The Architecture of Play: Building a Custom IDE with Sandpack
+          React & Developer Experience
         </div>
-        <H2 style={{ fontSize: "3.25rem", marginBottom: "1.5rem" }}>
-          Build, Break, Learn: Creating Your Own Code Playground{" "}
-        </H2>
-        <P
-          style={{ fontSize: "1.25rem", opacity: 0.8, marginBottom: "1.5rem" }}
-        >
+        <H1 style={{ fontSize: "3.25rem", marginBottom: "1.5rem" }}>
+          Build Your Own Code Playground with Sandpack
+        </H1>
+        <P style={{ fontSize: "1.25rem", opacity: 0.8, marginBottom: "1.5rem" }}>
           From zero to a fully custom IDE — one layer at a time.
         </P>
         <div
@@ -79,6 +77,10 @@ const Blog = () => {
             fontSize: "1rem",
           }}
         >
+          <span>Harish Krishnan</span>
+          <span>•</span>
+          <span>April 2026</span>
+          <span>•</span>
           <span>10 min read</span>
         </div>
       </header>
@@ -87,21 +89,17 @@ const Blog = () => {
       {/* INTRO: WHY PLAYGROUNDS MATTER                      */}
       {/* ═══════════════════════════════════════════════════ */}
       <P>
-        Reading code is like reading sheet music; you can see the notes, but you
-        miss the music. A live playground lets your readers{" "}
-        <Strong>hear it</Strong>. It transforms a passive tutorial into an
-        active laboratory.
+        Reading a code snippet is like reading sheet music — you get the notes,
+        but you miss the music. A live code playground lets your readers{" "}
+        <Strong>hear it</Strong>. They can change a variable, tweak a prop,
+        break something, fix it, and actually <em>feel</em> the concept click.
       </P>
 
       <P>
-        After the success of <Code>useBattery</Code> and <Code>useEggs</Code>, I
-        wanted to peel back the curtain on the tool that makes those demos
-        possible: <Strong>Sandpack</Strong>, the open-source in-browser bundler
-        from CodeSandbox.{" "}
-        <i>
-          And again, devliated from my Portfolio, since I have this guy in mine
-          :D
-        </i>
+        After building <Code>useBattery</Code> and <Code>useEggs</Code>, I
+        wanted to share something different — not a hook, but the{" "}
+        <Strong>tool that makes hook demos possible</Strong>. That tool is{" "}
+        <Strong>Sandpack</Strong>, the open-source bundler from CodeSandbox.
       </P>
 
       <P>
@@ -116,8 +114,7 @@ const Blog = () => {
         can fetch NPM dependencies, transpile JSX, and even supports hot module
         reloading — all without a backend. The{" "}
         <Code>@codesandbox/sandpack-react</Code> package gives us composable
-        React components and hooks to build custom playgrounds. <br />
-        P.S Sandpack is the actual bundler used by CodeSandbox.
+        React components and hooks to build custom playgrounds.
       </Callout>
 
       {/* ═══════════════════════════════════════════════════ */}
@@ -138,8 +135,8 @@ const Blog = () => {
       </CodeScreenshot>
 
       <P>
-        Two lines of code. That's all it takes to get a working playground. But
-        we're not stopping there — we're going to build something{" "}
+        Two lines of code. That's all it takes to get a working playground.
+        But we're not stopping there — we're going to build something{" "}
         <Strong>custom</Strong>.
       </P>
 
@@ -147,7 +144,9 @@ const Blog = () => {
       {/* PHASE 1: BASIC PLAYGROUND                          */}
       {/* ═══════════════════════════════════════════════════ */}
       <H2>Phase 1: The Bare Minimum</H2>
-      <P>Install Sandpack and its themes package:</P>
+      <P>
+        Install Sandpack and its themes package:
+      </P>
 
       <CodeScreenshot title="Terminal">
         {`npm install @codesandbox/sandpack-react @codesandbox/sandpack-themes`}
@@ -185,13 +184,15 @@ const Blog = () => {
       {/* ═══════════════════════════════════════════════════ */}
       <H2>Phase 2: Adding the Console</H2>
       <P>
-        What good is a playground if you can't see your <Code>console.log</Code>
-        ? Let's add a Console tab. This is where it gets interesting — and where
-        we learn an important React pattern.
+        What good is a playground if you can't see your{" "}
+        <Code>console.log</Code>? Let's add a Console tab. This is where it
+        gets interesting — and where we learn an important React pattern.
       </P>
 
       <H3>The display:none Trick</H3>
-      <P>Your first instinct might be to conditionally render the tabs:</P>
+      <P>
+        Your first instinct might be to conditionally render the tabs:
+      </P>
 
       <CodeScreenshot title="Don't do this!">
         {`{activeTab === "result" && <SandpackPreview />}
@@ -221,8 +222,8 @@ const Blog = () => {
       </CodeScreenshot>
 
       <P>
-        Now try it — type <Code>console.log("hello")</Code> in the editor below,
-        then switch to the Console tab:
+        Now try it — type <Code>console.log("hello")</Code> in the editor
+        below, then switch to the Console tab:
       </P>
 
       {/* LIVE: TabbedPlayground — reader can switch between Result/Console */}
@@ -247,9 +248,9 @@ const Blog = () => {
       {/* ═══════════════════════════════════════════════════ */}
       <H2>Phase 3: Make It Yours</H2>
       <P>
-        This is where the real fun begins. Sandpack exposes two powerful hooks —{" "}
-        <Code>useSandpack()</Code> and <Code>useActiveCode()</Code> — that give
-        you full programmatic control over the sandbox.
+        This is where the real fun begins. Sandpack exposes two powerful
+        hooks — <Code>useSandpack()</Code> and <Code>useActiveCode()</Code> —
+        that give you full programmatic control over the sandbox.
       </P>
 
       <List>
@@ -263,12 +264,14 @@ const Blog = () => {
           string + an <Code>updateCode()</Code> function to replace it.
         </ListItem>
         <ListItem>
-          <Strong>useSandpackNavigation()</Strong> — A <Code>refresh()</Code>{" "}
-          function that reloads the preview iframe.
+          <Strong>useSandpackNavigation()</Strong> — A{" "}
+          <Code>refresh()</Code> function that reloads the preview iframe.
         </ListItem>
       </List>
 
-      <P>With these hooks, we build custom action buttons:</P>
+      <P>
+        With these hooks, we build custom action buttons:
+      </P>
 
       <H3>Custom Hooks We Built</H3>
 
@@ -298,10 +301,10 @@ const Blog = () => {
       <Callout type="warning" title="The key Prop Trick">
         <Code>SandpackCodeEditor</Code> reads <Code>showLineNumbers</Code> only
         on mount — its internal CodeMirror instance doesn't re-read props. To
-        toggle line numbers dynamically, we change the editor's <Code>key</Code>{" "}
-        prop. React sees a new key, destroys the old editor, and creates a fresh
-        one that reads the updated value. It's a common pattern for "resetting"
-        components.
+        toggle line numbers dynamically, we change the editor's{" "}
+        <Code>key</Code> prop. React sees a new key, destroys the old editor,
+        and creates a fresh one that reads the updated value. It's a common
+        pattern for "resetting" components.
       </Callout>
 
       <P>
